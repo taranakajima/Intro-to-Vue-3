@@ -1,5 +1,9 @@
 app.component('product-display', {
   props: {
+    cartLength: {
+        type: Number,
+        required: true
+    },
     premium: {
       type: Boolean,
       required: true
@@ -39,6 +43,13 @@ app.component('product-display', {
           v-on:click="addToCart">
           Add to Cart
         </button>
+        <button
+            class="button"
+            :class="{ disabledButton: emptyCart }"
+            :disabled="emptyCart"
+            @click="removeFromCart">
+            Remove from Cart
+        </button>
       </div>
     </div>
   </div>`,
@@ -56,7 +67,12 @@ app.component('product-display', {
   },
   methods: {
       addToCart() {
-          this.cart += 1
+          this.$emit('add-to-cart', this.variants[this.selectedVariant].id)
+      },
+      removeFromCart() {
+          if (!this.emptyCart) {
+              this.$emit('remove-from-cart', this.variants[this.selectedVariant].id)
+          }
       },
       updateVariant(index) {
           this.selectedVariant = index
@@ -77,6 +93,9 @@ app.component('product-display', {
           return 'Free'
         }
         return 2.99
+      },
+      emptyCart() {
+          return this.cartLength === 0 ? true : false
       }
   }
 })
