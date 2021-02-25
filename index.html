@@ -12,10 +12,9 @@
     <div id="app">
       <div class="nav-bar"></div>
 
-      <div class="cart">Cart({{ cartLength }})</div>
+      <div class="cart">Cart({{ cart.length }})</div>
       <product-display 
         :premium="premium" 
-        :cartLength="cartLength"
         @add-to-cart="addToCart"
         @remove-from-cart="removeFromCart"></product-display>
     </div>

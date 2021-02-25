@@ -12,13 +12,10 @@ const app = Vue.createApp({
         removeFromCart(id) {
             if (this.cart.length > 0) {
                 const removeIndex = this.cart.indexOf(id)
-                this.cart.splice(removeIndex, 1)
+                if (removeIndex !== -1) {
+                    this.cart.splice(removeIndex, 1)
+                }
             }
-        }
-    },
-    computed: {
-        cartLength() {
-            return this.cart.length
         }
     }
 })
